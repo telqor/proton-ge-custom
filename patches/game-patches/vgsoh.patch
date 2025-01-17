@@ -8,7 +8,7 @@ index f4f9d14518f..105fa6ab3e0 100644
      UNICODE_STRING dirW;
 +    const char *sgi = getenv("SteamGameId");
 +
-+    if ((sgi != NULL) && (strcmp(sgi, "244210") == 0)) {
++    if ((sgi != NULL) && (strcmp(sgi, "218210") == 0)) {
 +        SIZE_T len = wcslen(dir);
 +
 +        if (len > 0 && dir[len - 1] == '.')
