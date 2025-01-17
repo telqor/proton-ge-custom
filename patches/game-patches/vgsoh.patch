@@ -10,7 +10,7 @@ index f4f9d14518f..69005607224 100644
 +    DWORD size = GetEnvironmentVariableA(L"SteamGameId", str, sizeof(str));
 +
 +    if (size > 0) {
-+        if (wcscmp(str, L"244210") == 0) {
++        if (wcscmp(str, L"218210") == 0) {
 +            SIZE_T len = wcslen(dir);
 +
 +            if (len > 0 && dir[len - 1] == '.') {
