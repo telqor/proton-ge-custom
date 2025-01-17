@@ -1,23 +1,26 @@
 diff --git a/dlls/kernelbase/file.c b/dlls/kernelbase/file.c
-index f4f9d14518f..105fa6ab3e0 100644
+index f4f9d14518f..69005607224 100644
 --- a/dlls/kernelbase/file.c
 +++ b/dlls/kernelbase/file.c
-@@ -2917,6 +2917,18 @@ BOOL WINAPI DECLSPEC_HOTPATCH SetCurrentDirectoryA( LPCSTR dir )
- BOOL WINAPI DECLSPEC_HOTPATCH SetCurrentDirectoryW( LPCWSTR dir )
+@@ -2918,6 +2918,21 @@ BOOL WINAPI DECLSPEC_HOTPATCH SetCurrentDirectoryW( LPCWSTR dir )
  {
      UNICODE_STRING dirW;
-+    const char *sgi = getenv("SteamGameId");
+ 
++    char str[MAX_PATH];
++    DWORD size = GetEnvironmentVariableA(L"SteamGameId", str, sizeof(str));
 +
-+    if ((sgi != NULL) && (strcmp(sgi, "218210") == 0)) {
-+        SIZE_T len = wcslen(dir);
++    if (size > 0) {
++        if (wcscmp(str, L"244210") == 0) {
++            SIZE_T len = wcslen(dir);
 +
-+        if (len > 0 && dir[len - 1] == '.')
-+        {
-+            WCHAR *p = (WCHAR *)dir + len - 1;
-+            *p = '\0';
-+            FIXME("%s . fixed\n", debugstr_w(dir));
++            if (len > 0 && dir[len - 1] == '.') {
++                WCHAR *p = (WCHAR *)dir + len - 1;
++                *p = '\0';
++                FIXME("%s . fixed\n", debugstr_w(dir));
++            }
 +        }
 +    }
- 
++
      RtlInitUnicodeString( &dirW, dir );
      return set_ntstatus( RtlSetCurrentDirectory_U( &dirW ));
+ }
