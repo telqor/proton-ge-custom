@@ -1288,10 +1288,6 @@ def default_compat_config():
                 "257420", #Serious Sam 4
                 ]:
             ret.add("hidevggpu")
-        if appid in [
-                "2217000", #Rivals of Aether II
-                ]:
-            ret.add("hideintelgpu")
 
         if appid in [
                 "1341820", #As Dusk falls
@@ -1697,9 +1693,6 @@ class Session:
 
         if "hidevggpu" in self.compat_config:
             self.env["WINE_HIDE_VANGOGH_GPU"] = "1"
-
-        if "hideintelgpu" in self.compat_config:
-            self.env["WINE_HIDE_INTEL_GPU"] = "1"
 
         if "hidenvgpu" in self.compat_config and "forcenvapi" not in self.compat_config:
             self.env["WINE_HIDE_NVIDIA_GPU"] = "1"
