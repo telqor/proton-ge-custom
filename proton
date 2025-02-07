@@ -43,7 +43,7 @@ from pathlib import Path
 #To enable debug logging, copy "user_settings.sample.py" to "user_settings.py"
 #and edit it if needed.
 
-CURRENT_PREFIX_VERSION="GE-Proton9-23"
+CURRENT_PREFIX_VERSION="GE-Proton9-24"
 
 PFX="Proton: "
 ld_path_var = "LD_LIBRARY_PATH"
@@ -1311,6 +1311,12 @@ def default_compat_config():
                 "1845910", #Dragon Age: The Veilguard
                 "2842040", #Star Wars Outlaws
                 "245300", #Disney Epic Mickey 2: The Power of Two
+                "2594920", #Atelier Resleriana: Forgotten Alchemy and the Polar Night Liberator
+                "3209830", #Stronghold Crusader: Definitive Edition Demo
+                "3024040", #Stronghold Crusader: Definitive Edition
+                "2433890", #Stronghold: Definitive Edition Demo
+                "2140020", #Stronghold: Definitive Edition
+                "3314070", #The Sims 2 Legacy Collection
                 ]:
             ret.add("gamedrive")
 
