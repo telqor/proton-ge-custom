@@ -324,8 +324,8 @@
     echo "WINE: -PENDING- Add options to disable proton media converter."
     patch -Np1 < ../patches/wine-hotfixes/pending/add-envvar-to-gate-media-converter.patch
 
-    #echo "WINE: -Nvidia Reflex- Support VK_NV_low_latency2"
-    #patch -Np1 < ../patches/proton/83-nv_low_latency_wine.patch
+    echo "WINE: -Nvidia Reflex- Support VK_NV_low_latency2"
+    patch -Np1 < ../patches/proton/83-nv_low_latency_wine.patch
 
     echo "WINE: -CUSTOM- Downgrade MESSAGE to TRACE to remove write_watches spam"
     patch -Np1 < ../patches/proton/0001-ntdll-Downgrade-using-kernel-write-watches-from-MESS.patch
