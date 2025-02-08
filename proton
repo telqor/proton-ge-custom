@@ -1493,14 +1493,6 @@ class Session:
         if "noforcelgadd" not in self.compat_config:
             self.compat_config.add("forcelgadd")
 
-        #turn nowmdecoration on by default unless it is disabled in compat config
-        if "nowmdecoration" not in self.compat_config:
-            self.compat_config.add("nowmdecoration")
-
-        #turn prefersdl on by default unless it is disabled in compat config
-        if "prefersdl" not in self.compat_config:
-            self.compat_config.add("prefersdl")
-
         appid = os.environ.get("SteamGameId", 0)
         if "PROTON_CPU_TOPOLOGY" in self.env:
             self.env["WINE_CPU_TOPOLOGY"] = self.env["PROTON_CPU_TOPOLOGY"]
