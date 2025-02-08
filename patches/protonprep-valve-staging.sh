@@ -333,6 +333,9 @@
     echo "WINE: -CUSTOM- Fix wine bug #56653 - GetLogicalProcessorInformation can be missing Cache information"
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-bug-56653.patch
 
+    echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
+    patch -Np1 < ../patches/proton/WINE_NO_WM_DECORATION.patch
+
     popd
 
 ### END PROTON-GE ADDITIONAL CUSTOM PATCHES ###
