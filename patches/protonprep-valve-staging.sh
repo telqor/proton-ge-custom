@@ -336,6 +336,12 @@
     echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
     patch -Np1 < ../patches/proton/WINE_NO_WM_DECORATION.patch
 
+    echo "WINE: -CUSTOM- Add josh's flat theme patch to compensate for defaulting to not allowing system window decorations by using a more modern default theme"
+    patch -Np1 < ../patches/proton/josh-flat-theme.patch
+
+    echo "WINE: -CUSTOM- Add PROTON_PREFER_SDL option to make it not prefer hidraw and instead expose both sdl and hidraw"
+    patch -Np1 < ../patches/proton/PREFER_SDL.patch
+
     popd
 
 ### END PROTON-GE ADDITIONAL CUSTOM PATCHES ###
