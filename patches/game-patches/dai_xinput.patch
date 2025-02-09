@@ -60,12 +60,12 @@ index d67f462359c..dee6c5acf57 100644
 +    static const char* DAIGameLoopName = "GameLoop";
 +    const char *sgi;
 +
-+    prctl(PR_GET_NAME, processNameForHack);
-+
-+    TRACE("Process Name: %s\n", processNameForHack); 
-+    
 +    if ((sgi = getenv("SteamGameId")) && !strcmp(sgi, "1222690"))
 +    {
++        prctl(PR_GET_NAME, processNameForHack);
++
++        TRACE("Process Name: %s\n", processNameForHack); 
++    
 +        if (strncmp(DAIprocessName, processNameForHack, 15) == 0 || strncmp(DAIGameLoopName, processNameForHack, 8) == 0)
 +        {
 +            if (!visited)
