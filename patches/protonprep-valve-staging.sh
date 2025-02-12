@@ -291,6 +291,10 @@
     echo "WINE: -GAME FIXES- add __TRY/__EXCEPT_PAGE_FAULT wnsprintfA xDefiant patch because of a bad arg passed by the game that would exit to desktop"
     patch -Np1 < ../patches/game-patches/xdefiant.patch
 
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/7032
+    echo "WINE: -GAME FIXES- add webview2 patch for GIRLS' FRONTLINE 2: EXILIUM"
+    patch -Np1 < ../patches/game-patches/webview2.patch
+
 ### END GAME PATCH SECTION ###
 
 ### (2-4) WINE HOTFIX/BACKPORT SECTION ###
