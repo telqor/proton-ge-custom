@@ -10,7 +10,7 @@
     pushd vkd3d-proton
     git reset --hard HEAD
     git clean -xdf
-    
+
     popd
 
     pushd dxvk-nvapi
@@ -291,10 +291,6 @@
     echo "WINE: -GAME FIXES- add __TRY/__EXCEPT_PAGE_FAULT wnsprintfA xDefiant patch because of a bad arg passed by the game that would exit to desktop"
     patch -Np1 < ../patches/game-patches/xdefiant.patch
 
-    # https://gitlab.winehq.org/wine/wine/-/merge_requests/7032
-    echo "WINE: -GAME FIXES- add webview2 patch for GIRLS' FRONTLINE 2: EXILIUM"
-    patch -Np1 < ../patches/game-patches/webview2.patch
-
 ### END GAME PATCH SECTION ###
 
 ### (2-4) WINE HOTFIX/BACKPORT SECTION ###
@@ -317,6 +313,30 @@
 
     echo "WINE: -PENDING- DXGI_FORMAT_R8G8B8A8_UNORM: Suport for DXGI_FORMAT_R8G8B8A8_UNORM on d2d_wic_render_target_init (Alt:V GTA V coustom client)"
     patch -Np1 < ../patches/wine-hotfixes/pending/support_for_DXGI_FORMAT_R8G8B8A8_UNORM.patch
+
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/7032
+    # https://bugs.winehq.org/show_bug.cgi?id=56259
+    # https://forum.winehq.org/viewtopic.php?t=38443
+    echo "WINE: -GAME FIXES- add webview2 patches for GIRLS' FRONTLINE 2: EXILIUM and Vermintide 2"
+    patch -Np1 < ../patches/wine-hotfixes/pending/webview2.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/webview2-install-fix.patch
+
+    # https://github.com/ValveSoftware/Proton/issues/7878
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5153.patch
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5143.patch
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5142.patch
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5175.patch
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5103.patch
+    echo "WINE: -PENDING- taskschd (NCSoft Purple Client)"
+    patch -Np1 < ../patches/wine-hotfixes/pending/0001-taskschd-ncsoft-purple-5153.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/0002-taskschd-ncsoft-purple-5143.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/0003-taskschd-ncsoft-purple-5142.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/0004-taskschd-ncsoft-purple-5175.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/0005-taskschd-ncsoft-purple-5103.patch
+
+    echo "WINE: -PENDING- GetDpiAwarenessContextForProcess (GTA V Enhanced)"
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/6802
+    patch -Np1 < ../patches/wine-hotfixes/pending/6802.patch
 ### END WINE PENDING UPSTREAM SECTION ###
 
 
@@ -347,4 +367,3 @@
 
 ### END PROTON-GE ADDITIONAL CUSTOM PATCHES ###
 ### END WINE PATCHING ###
-
