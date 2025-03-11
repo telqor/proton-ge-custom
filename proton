@@ -1236,6 +1236,8 @@ def default_compat_config():
                 "1097480", #Iragon 18+
                 #CW bug 23986
                 "1928420", #Farlight 84
+                #CW bug 24913
+                "2620730", #Deviator
                 ]:
             ret.add("nomfdxgiman")
 
@@ -1317,6 +1319,7 @@ def default_compat_config():
                 "2433890", #Stronghold: Definitive Edition Demo
                 "2140020", #Stronghold: Definitive Edition
                 "3314070", #The Sims 2 Legacy Collection
+                "2709570", #Supermarket Together
                 ]:
             ret.add("gamedrive")
 
