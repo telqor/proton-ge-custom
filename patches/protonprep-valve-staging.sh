@@ -290,7 +290,7 @@
 
     echo "WINE: -GAME FIXES- add __TRY/__EXCEPT_PAGE_FAULT wnsprintfA xDefiant patch because of a bad arg passed by the game that would exit to desktop"
     patch -Np1 < ../patches/game-patches/xdefiant.patch
-    
+
     echo "WINE: -GAME FIXES- Microsoft Flight Simulator 2024 needs WerRegisterCustomMetadata since SU1"
     patch -Np1 < ../patches/game-patches/msfs2024.patch
 
@@ -337,9 +337,6 @@
     patch -Np1 < ../patches/wine-hotfixes/pending/0004-taskschd-ncsoft-purple-5175.patch
     patch -Np1 < ../patches/wine-hotfixes/pending/0005-taskschd-ncsoft-purple-5103.patch
 
-    echo "WINE: -PENDING- GetDpiAwarenessContextForProcess (GTA V Enhanced)"
-    # https://gitlab.winehq.org/wine/wine/-/merge_requests/6802
-    patch -Np1 < ../patches/wine-hotfixes/pending/6802.patch
 ### END WINE PENDING UPSTREAM SECTION ###
 
 
