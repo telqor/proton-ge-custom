@@ -291,9 +291,6 @@
     echo "WINE: -GAME FIXES- add __TRY/__EXCEPT_PAGE_FAULT wnsprintfA xDefiant patch because of a bad arg passed by the game that would exit to desktop"
     patch -Np1 < ../patches/game-patches/xdefiant.patch
 
-    echo "WINE: -GAME FIXES- Microsoft Flight Simulator 2024 needs WerRegisterCustomMetadata since SU1"
-    patch -Np1 < ../patches/game-patches/msfs2024.patch
-
 ### END GAME PATCH SECTION ###
 
 ### (2-4) WINE HOTFIX/BACKPORT SECTION ###
