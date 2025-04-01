@@ -56,6 +56,11 @@
 
     git revert --no-commit e813ca5771658b00875924ab88d525322e50d39f
 
+# This doesn't correctly resolve the issue. We have patches that handle this for gstreamer
+# Need to revert this so our patches work.
+
+    git revert --no-commit 37818f7a547f7090ef684f8202438374fc31a165
+
 ### END PROBLEMATIC COMMIT REVERT SECTION ###
 
 ### (2-2) WINE STAGING APPLY SECTION ###
