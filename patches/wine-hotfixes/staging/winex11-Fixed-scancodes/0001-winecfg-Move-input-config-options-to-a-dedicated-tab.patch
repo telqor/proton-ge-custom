@@ -18,7 +18,7 @@ Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=45605
  create mode 100644 programs/winecfg/input.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index dc5c85cc4ec..a5902235be8 100644
+index c4afb5da88c..e52d8d5f91a 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -182,6 +182,7 @@ F:	dlls/user32/input.c
@@ -30,7 +30,7 @@ index dc5c85cc4ec..a5902235be8 100644
  Input methods
  M:	Rémi Bernon <rbernon@codeweavers.com>
 diff --git a/programs/winecfg/Makefile.in b/programs/winecfg/Makefile.in
-index 99c829a9468..1105a99e177 100644
+index 780f0e7e183..8e971736af5 100644
 --- a/programs/winecfg/Makefile.in
 +++ b/programs/winecfg/Makefile.in
 @@ -9,6 +9,7 @@ SOURCES = \
@@ -153,26 +153,26 @@ index 00000000000..115161b9040
 +    return FALSE;
 +}
 diff --git a/programs/winecfg/resource.h b/programs/winecfg/resource.h
-index c0d7adadcc1..6e2953c0d70 100644
+index cd7eaaf711e..d3217d20694 100644
 --- a/programs/winecfg/resource.h
 +++ b/programs/winecfg/resource.h
-@@ -46,6 +46,7 @@
+@@ -45,6 +45,7 @@
+ #define IDS_SHELL_FOLDER                16
  #define IDS_LINKS_TO                    17
  #define IDS_WINECFG_TITLE_APP           18   /* App specific title */
- #define IDS_TAB_STAGING                 19
 +#define IDS_TAB_INPUT                   20
  #define IDI_WINECFG                     100
  #define IDI_LOGO                        102
  #define IDD_ABOUTCFG                    107
-@@ -56,6 +57,7 @@
+@@ -54,6 +55,7 @@
+ #define IDD_DLLCFG                      111
  #define IDD_DRIVECFG                    112
  #define IDD_DESKTOP_INTEGRATION         115
- #define IDD_STAGING                     116
 +#define IDD_INPUT_CONFIG                117
  #define IDC_WINVER                      1012
  #define IDC_DESKTOP_WIDTH               1023
  #define IDC_DESKTOP_HEIGHT              1024
-@@ -126,7 +128,6 @@
+@@ -124,7 +126,6 @@
  /* graphics */
  #define IDC_ENABLE_MANAGED              1100
  #define IDC_ENABLE_DECORATED            1101
@@ -180,7 +180,7 @@ index c0d7adadcc1..6e2953c0d70 100644
  
  #define IDC_RES_TRACKBAR                1107
  #define IDC_RES_DPIEDIT                 1108
-@@ -230,3 +231,6 @@
+@@ -221,3 +222,6 @@
  #define IDC_ABT_TITLE_TEXT           8436
  #define IDC_ABT_WEB_LINK             8437
  #define IDC_ABT_LICENSE_TEXT         8438
@@ -188,7 +188,7 @@ index c0d7adadcc1..6e2953c0d70 100644
 +/* input tab */
 +#define IDC_FULLSCREEN_GRAB             1501
 diff --git a/programs/winecfg/winecfg.h b/programs/winecfg/winecfg.h
-index d4fedff5afb..b83234470c1 100644
+index f3f3ad2addf..0c7ed407803 100644
 --- a/programs/winecfg/winecfg.h
 +++ b/programs/winecfg/winecfg.h
 @@ -74,6 +74,9 @@ WCHAR *keypath(const WCHAR *section);
@@ -201,27 +201,27 @@ index d4fedff5afb..b83234470c1 100644
  /* hack for the property sheet control  */
  void set_window_title(HWND dialog);
  
-@@ -87,6 +90,7 @@ INT_PTR CALLBACK AudioDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
+@@ -86,6 +89,7 @@ INT_PTR CALLBACK LibrariesDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM l
+ INT_PTR CALLBACK AudioDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
  INT_PTR CALLBACK ThemeDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
- INT_PTR CALLBACK StagingDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
  INT_PTR CALLBACK AboutDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 +INT_PTR CALLBACK InputDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
  
  /* Windows version management */
  BOOL set_winver_from_string(const WCHAR *version);
 diff --git a/programs/winecfg/winecfg.rc b/programs/winecfg/winecfg.rc
-index 428c477413c..1231e5319c5 100644
+index 779a2f900e3..5ca1ae8edcd 100644
 --- a/programs/winecfg/winecfg.rc
 +++ b/programs/winecfg/winecfg.rc
-@@ -40,6 +40,7 @@ BEGIN
+@@ -39,6 +39,7 @@ BEGIN
+     IDS_TAB_DESKTOP_INTEGRATION "Desktop Integration"
      IDS_TAB_AUDIO           "Audio"
-     IDS_TAB_STAGING         "Staging"
      IDS_TAB_ABOUT           "About"
 +    IDS_TAB_INPUT           "Input"
      IDS_WINECFG_TITLE       "Wine configuration"
      IDS_WINECFG_TITLE_APP   "Wine configuration for %s"
      IDS_THEMEFILE           "Theme files (*.msstyles; *.theme)"
-@@ -171,22 +172,21 @@ IDD_GRAPHCFG DIALOG  0, 0, 260, 220
+@@ -170,22 +171,21 @@ IDD_GRAPHCFG DIALOG  0, 0, 260, 220
  STYLE WS_CHILD | WS_DISABLED
  FONT 8, "MS Shell Dlg"
  BEGIN
@@ -258,8 +258,8 @@ index 428c477413c..1231e5319c5 100644
  END
  
  IDD_DLLCFG DIALOG  0, 0, 260, 220
-@@ -332,6 +332,14 @@ BEGIN
-     CONTROL     "Enable &GTK3 Theming",IDC_ENABLE_GTK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,100,230,8
+@@ -318,6 +318,14 @@ BEGIN
+     PUSHBUTTON      "B&rowse...",IDC_BROWSE_SFPATH,195,195,50,13,WS_DISABLED
  END
  
 +IDD_INPUT_CONFIG DIALOG  0, 0, 260, 220
@@ -274,10 +274,10 @@ index 428c477413c..1231e5319c5 100644
  
  /* @makedep: winecfg.ico */
 diff --git a/programs/winecfg/x11drvdlg.c b/programs/winecfg/x11drvdlg.c
-index 215cd6534a2..cd7b7552a1e 100644
+index aea52717a78..2f739564c23 100644
 --- a/programs/winecfg/x11drvdlg.c
 +++ b/programs/winecfg/x11drvdlg.c
-@@ -47,7 +47,7 @@ static const UINT dpi_values[] = { 96, 120, 144, 168, 192, 216, 240, 288, 336, 3
+@@ -46,7 +46,7 @@ static const UINT dpi_values[] = { 96, 120, 144, 168, 192, 216, 240, 288, 336, 3
  static BOOL updating_ui;
  
  /* convert the x11 desktop key to the new explorer config */
@@ -286,7 +286,7 @@ index 215cd6534a2..cd7b7552a1e 100644
  {
      WCHAR *buf;
  
-@@ -139,13 +139,6 @@ static void init_dialog(HWND dialog)
+@@ -138,13 +138,6 @@ static void init_dialog(HWND dialog)
          SendDlgItemMessageW(dialog, IDC_DESKTOP_HEIGHT, EM_LIMITTEXT, RES_MAXLEN, 0);
      }
  
@@ -300,7 +300,7 @@ index 215cd6534a2..cd7b7552a1e 100644
      buf = get_reg_key(config_key, keypath(L"X11 Driver"), L"Managed", L"Y");
      if (IS_OPTION_TRUE(*buf))
  	CheckDlgButton(dialog, IDC_ENABLE_MANAGED, BST_CHECKED);
-@@ -220,14 +213,6 @@ static void on_enable_decorated_clicked(HWND dialog) {
+@@ -219,14 +212,6 @@ static void on_enable_decorated_clicked(HWND dialog) {
      }
  }
  
@@ -315,7 +315,7 @@ index 215cd6534a2..cd7b7552a1e 100644
  static INT read_logpixels_reg(void)
  {
      DWORD dwLogPixels;
-@@ -383,7 +368,6 @@ GraphDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+@@ -382,7 +367,6 @@ GraphDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
  			case IDC_ENABLE_DESKTOP: on_enable_desktop_clicked(hDlg); break;
                          case IDC_ENABLE_MANAGED: on_enable_managed_clicked(hDlg); break;
                          case IDC_ENABLE_DECORATED: on_enable_decorated_clicked(hDlg); break;
