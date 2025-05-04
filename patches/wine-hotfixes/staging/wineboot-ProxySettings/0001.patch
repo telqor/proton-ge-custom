@@ -1,4 +1,4 @@
-From 584eecc73a8cba537b8f50932769729a29fe7d3d Mon Sep 17 00:00:00 2001
+From e202f97f01a3842a4dbe797a2b1a15b8b29fd83b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Michael=20M=C3=BCller?= <michael@fds-team.de>
 Date: Mon, 26 Dec 2016 16:37:40 +0100
 Subject: [PATCH] wineboot: Initialize proxy settings registry key.
@@ -9,30 +9,30 @@ Subject: [PATCH] wineboot: Initialize proxy settings registry key.
  2 files changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/programs/wineboot/Makefile.in b/programs/wineboot/Makefile.in
-index 667f8f48702..4a1747ad047 100644
+index 035197970d8..19854e945c8 100644
 --- a/programs/wineboot/Makefile.in
 +++ b/programs/wineboot/Makefile.in
 @@ -1,6 +1,6 @@
  MODULE    = wineboot.exe
  IMPORTS   = uuid advapi32 ws2_32 kernelbase
--DELAYIMPORTS = shell32 shlwapi version user32 setupapi newdev crypt32
-+DELAYIMPORTS = shell32 shlwapi version user32 setupapi newdev crypt32 wininet
+-DELAYIMPORTS = shell32 shlwapi version user32 gdi32 setupapi newdev crypt32
++DELAYIMPORTS = shell32 shlwapi version user32 gdi32 setupapi newdev crypt32 wininet
  
  EXTRADLLFLAGS = -mconsole
  
 diff --git a/programs/wineboot/wineboot.c b/programs/wineboot/wineboot.c
-index 14943b005ef..9aab3b68e5b 100644
+index f094993eb1b..b80e6b295a8 100644
 --- a/programs/wineboot/wineboot.c
 +++ b/programs/wineboot/wineboot.c
-@@ -77,6 +77,7 @@
+@@ -78,6 +78,7 @@
  #include <shlwapi.h>
  #include <shellapi.h>
  #include <setupapi.h>
 +#include <wininet.h>
  #include <newdev.h>
+ #include <wincrypt.h>
  #include "resource.h"
- 
-@@ -1002,6 +1003,13 @@ static void create_volatile_environment_registry_key(void)
+@@ -1190,6 +1191,13 @@ static void create_volatile_environment_registry_key(void)
      RegCloseKey( hkey );
  }
  
@@ -46,14 +46,11 @@ index 14943b005ef..9aab3b68e5b 100644
  /* Performs the rename operations dictated in %SystemRoot%\Wininit.ini.
   * Returns FALSE if there was an error, or otherwise if all is ok.
   */
-@@ -1812,6 +1820,7 @@ int __cdecl main( int argc, char *argv[] )
-     if (init || update) update_wineprefix( update );
+@@ -2067,6 +2075,7 @@ int __cdecl main( int argc, char *argv[] )
  
+     create_digitalproductid();
      create_volatile_environment_registry_key();
 +    create_proxy_settings();
  
      ProcessRunKeys( HKEY_LOCAL_MACHINE, L"RunOnce", TRUE, TRUE );
  
--- 
-2.33.0
-
