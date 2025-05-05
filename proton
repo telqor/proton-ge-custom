@@ -1035,6 +1035,11 @@ class CompatData:
 
             self.upgrade_pfx(old_ver)
 
+            if old_ver is None and "UMU_ID" in os.environ:
+                with open(self.creation_sync_guard, "w"):
+                    pass
+                os.sync()
+
             # not fully-created prefix, copy it for future investigation
             if file_exists(self.prefix_dir, follow_symlinks=True) and not file_exists(self.creation_sync_guard, follow_symlinks=True):
                 shutil.move(self.prefix_dir, self.path(f"corrupted_pfx-{time.time()}.bak"))
