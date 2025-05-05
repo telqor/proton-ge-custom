@@ -257,9 +257,6 @@
     echo "WINE: -PENDING- add webview2 patches for GIRLS' FRONTLINE 2: EXILIUM"
     patch -Np1 < ../patches/wine-hotfixes/pending/webview2.patch
 
-    echo "WINE: -PENDING- Fix wine bug #56653 - GetLogicalProcessorInformation can be missing Cache information"
-    patch -Np1 < ../patches/wine-hotfixes/pending/wine-bug-56653.patch
-
     # https://github.com/ValveSoftware/wine/pull/269
     echo "WINE: -PENDING- Hid multi TLC and Fanatec wheel-bases hidraw white-list"
     patch -Np1 < ../patches/wine-hotfixes/pending/hid-multi-tlc-and-ftec-hidraw-269.patch
@@ -288,11 +285,8 @@
     echo "WINE: -CUSTOM- winewayland-relative_motion_accumulator"
     patch -Np1 < ../patches/proton/winewayland-relative_motion_accumulator.patch
 
-#    echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
-#    patch -Np1 < ../patches/proton/WINE_NO_WM_DECORATION.patch
-
-#    echo "WINE: -CUSTOM- Add PROTON_PREFER_SDL option to make it not prefer hidraw and instead expose both sdl and hidraw"
-#    patch -Np1 < ../patches/proton/PREFER_SDL.patch
+    echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
+    patch -Np1 < ../patches/proton/0001-win32u-add-env-switch-to-disable-wm-decorations.patch
 
 
     popd
