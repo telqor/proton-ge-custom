@@ -38,6 +38,10 @@
     git reset --hard HEAD
     git clean -xdf
     popd
+    pushd unzip
+    git reset --hard HEAD
+    git clean -xdf
+    popd
     popd
     popd
 
@@ -67,8 +71,7 @@
 
     echo "WINE: -STAGING- applying staging patches"
 
-    ../wine-staging/staging/patchinstall.py DESTDIR="." -a -r \
-
+    ../wine-staging/staging/patchinstall.py DESTDIR="." --all \
     -W winex11-_NET_ACTIVE_WINDOW \
     -W winex11-WM_WINDOWPOSCHANGING \
     -W user32-alttab-focus \
@@ -76,11 +79,11 @@
     -W server-Signal_Thread \
     -W ntdll-Junction_Points \
     -W server-Stored_ACLs \
+    -W server-File_Permissions \
     -W kernel32-CopyFileEx \
     -W shell32-Progress_Dialog \
     -W shell32-ACE_Viewer \
     -W dbghelp-Debug_Symbols \
-
     -W ntdll-Syscall_Emulation \
     -W eventfd_synchronization \
     -W server-PeekMessage \
@@ -94,14 +97,22 @@
     -W d3dx11_43-D3DX11CreateTextureFromMemory \
     -W d3dx9_36-D3DXStubs \
     -W wined3d-zero-inf-shaders \
-
+    -W ntdll-RtlQueryPackageIdentity \
+    -W loader-KeyboardLayouts \
+    -W ntdll-Hide_Wine_Exports \
+    -W kernel32-Debugger \
+    -W ntdll-ext4-case-folder \
+    -W user32-FlashWindowEx \
+    -W winex11-Fixed-scancodes \
+    -W winex11-Window_Style \
+    -W winex11-ime-check-thread-data \
+    -W winex11.drv-Query_server_position \
+    -W wininet-Cleanup \
     -W cryptext-CryptExtOpenCER \
     -W wineboot-ProxySettings
 
     # NOTE: Some patches are applied manually because they -do- apply, just not cleanly, ie with patch fuzz.
     # A detailed list of why the above patches are disabled is listed below:
-
-    # ** loader-KeyboardLayouts - note -- always use and/or rebase this --  needed to prevent Overwatch huge FPS drop
 
     # winex11-_NET_ACTIVE_WINDOW - Causes origin to freeze
     # winex11-WM_WINDOWPOSCHANGING - Causes origin to freeze
@@ -110,6 +121,7 @@
     # server-Signal_Thread - breaks steamclient for some games -- notably DBFZ
     # ntdll-Junction_Points - breaks CEG drm
     # server-Stored_ACLs - requires ntdll-Junction_Points
+    # server-File_Permissions - requires ntdll-Junction_Pointsv
     # kernel32-CopyFileEx - breaks various installers
     # shell32-Progress_Dialog - relies on kernel32-CopyFileEx
     # shell32-ACE_Viewer - adds a UI tab, not needed, relies on kernel32-CopyFileEx
@@ -128,8 +140,22 @@
     # d3dx11_43-D3DX11CreateTextureFromMemory - already applied
     # d3dx9_36-D3DXStubs - already applied
     # wined3d-zero-inf-shaders - already applied
+    # ntdll-RtlQueryPackageIdentity - already applied
 
-    # rebased and applied manually:
+    # applied manually:
+    # ** loader-KeyboardLayouts - note -- always use and/or rebase this --  needed to prevent Overwatch huge FPS drop
+    # ntdll-Hide_Wine_Exports
+    # kernel32-Debugger
+    # ntdll-ext4-case-folder
+    # user32-FlashWindowEx
+    # winex11-Fixed-scancodes
+    # winex11-Window_Style
+    # winex11-ime-check-thread-data
+    # winex11.drv-Query_server_position
+    # wininet-Cleanup
+
+    # rebase and applied manually:
+    # ** loader-KeyboardLayouts - note -- always use and/or rebase this --  needed to prevent Overwatch huge FPS drop
     # cryptext-CryptExtOpenCER
     # wineboot-ProxySettings
 
@@ -137,6 +163,51 @@
     # mfplat-streaming-support -- interferes with proton's mfplat -- currently also disabled in upstream staging
     # wined3d-SWVP-shaders -- interferes with proton's wined3d -- currently also disabled in upstream staging
     # wined3d-Indexed_Vertex_Blending -- interferes with proton's wined3d -- currently also disabled in upstream staging
+
+
+    echo "WINE: -STAGING- loader-KeyboardLayouts manually applied"
+    patch -Np1 < ../wine-staging/patches/loader-KeyboardLayouts/0001-loader-Add-Keyboard-Layouts-registry-enteries.patch
+    patch -Np1 < ../wine-staging/patches/loader-KeyboardLayouts/0002-user32-Improve-GetKeyboardLayoutList.patch
+
+    echo "WINE: -STAGING- ntdll-Hide_Wine_Exports manually applied"
+    patch -Np1 < ../wine-staging/patches/ntdll-Hide_Wine_Exports/0001-ntdll-Add-support-for-hiding-wine-version-informatio.patch
+
+    echo "WINE: -STAGING- kernel32-Debugger manually applied"
+    patch -Np1 < ../wine-staging/patches/kernel32-Debugger/0001-kernel32-Always-start-debugger-on-WinSta0.patch
+
+    echo "WINE: -STAGING- ntdll-ext4-case-folder manually applied"
+    patch -Np1 < ../wine-staging/patches/ntdll-ext4-case-folder/0002-ntdll-server-Mark-drive_c-as-case-insensitive-when-c.patch
+
+    echo "WINE: -STAGING- user32-FlashWindowEx manually applied"
+    patch -Np1 < ../wine-staging/patches/user32-FlashWindowEx/0001-user32-Improve-FlashWindowEx-message-and-return-valu.patch
+
+    echo "WINE: -STAGING- winex11-Fixed-scancodes manually applied"
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0001-winecfg-Move-input-config-options-to-a-dedicated-tab.patch
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0002-winex11-Always-create-the-HKCU-configuration-registr.patch
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0003-winex11-Write-supported-keyboard-layout-list-in-regi.patch
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0004-winecfg-Add-a-keyboard-layout-selection-config-optio.patch
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0005-winex11-Use-the-user-configured-keyboard-layout-if-a.patch
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0006-winecfg-Add-a-keyboard-scancode-detection-toggle-opt.patch
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0007-winex11-Use-scancode-high-bit-to-set-KEYEVENTF_EXTEN.patch
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0008-winex11-Support-fixed-X11-keycode-to-scancode-conver.patch
+    patch -Np1 < ../wine-staging/patches/winex11-Fixed-scancodes/0009-winex11-Disable-keyboard-scancode-auto-detection-by-.patch
+
+    echo "WINE: -STAGING- winex11-Window_Style manually applied"
+    patch -Np1 < ../wine-staging/patches/winex11-Window_Style/0001-winex11-Fix-handling-of-window-attributes-for-WS_EX_.patch
+
+    echo "WINE: -STAGING- winex11-ime-check-thread-data manually applied"
+    patch -Np1 < ../wine-staging/patches/winex11-ime-check-thread-data/0001-winex11.drv-handle-missing-thread-data-in-X11DRV_get_ic.patch
+
+    echo "WINE: -STAGING- winex11.drv-Query_server_position manually applied"
+    patch -Np1 < ../wine-staging/patches/winex11.drv-Query_server_position/0001-winex11.drv-window-Query-the-X-server-for-the-actual.patch
+
+    echo "WINE: -STAGING- wininet-Cleanup manually applied"
+    patch -Np1 < ../wine-staging/patches/wininet-Cleanup/0001-wininet-tests-Add-more-tests-for-cookies.patch
+    patch -Np1 < ../wine-staging/patches/wininet-Cleanup/0002-wininet-tests-Test-auth-credential-reusage-with-host.patch
+    patch -Np1 < ../wine-staging/patches/wininet-Cleanup/0003-wininet-tests-Check-cookie-behaviour-when-overriding.patch
+    patch -Np1 < ../wine-staging/patches/wininet-Cleanup/0004-wininet-Strip-filename-if-no-path-is-set-in-cookie.patch
+    patch -Np1 < ../wine-staging/patches/wininet-Cleanup/0005-wininet-Replacing-header-fields-should-fail-if-they-.patch
+
 
     echo "WINE: -STAGING- cryptext-CryptExtOpenCER manually applied"
     patch -Np1 < ../patches/wine-hotfixes/staging/cryptext-CryptExtOpenCER/0001.patch
@@ -154,14 +225,11 @@
     echo "WINE: -GAME FIXES- add file search workaround hack for Phantasy Star Online 2 (WINE_NO_OPEN_FILE_SEARCH)"
     patch -Np1 < ../patches/game-patches/pso2_hack.patch
 
-    echo "WINE: -GAME FIXES- add xinput support to Dragon Age Inquisition"
-    patch -Np1 < ../patches/game-patches/dai_xinput.patch
-
     echo "WINE: -GAME FIXES- add set current directory workaround for Vanguard Saga of Heroes"
     patch -Np1 < ../patches/game-patches/vgsoh.patch
 
-    echo "WINE: -GAME FIXES- add __TRY/__EXCEPT_PAGE_FAULT wnsprintfA xDefiant patch because of a bad arg passed by the game that would exit to desktop"
-    patch -Np1 < ../patches/game-patches/xdefiant.patch
+#    echo "WINE: -GAME FIXES- add xinput support to Dragon Age Inquisition"
+#    patch -Np1 < ../patches/game-patches/dai_xinput.patch
 
 ### END GAME PATCH SECTION ###
 
@@ -186,22 +254,15 @@
     # https://gitlab.winehq.org/wine/wine/-/merge_requests/7032
     # https://bugs.winehq.org/show_bug.cgi?id=56259
     # https://forum.winehq.org/viewtopic.php?t=38443
-    echo "WINE: -GAME FIXES- add webview2 patches for GIRLS' FRONTLINE 2: EXILIUM and Vermintide 2"
+    echo "WINE: -PENDING- add webview2 patches for GIRLS' FRONTLINE 2: EXILIUM"
     patch -Np1 < ../patches/wine-hotfixes/pending/webview2.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/webview2-install-fix.patch
 
-    # https://github.com/ValveSoftware/Proton/issues/7878
-    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5153.patch
-    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5143.patch
-    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5142.patch
-    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5175.patch
-    # https://gitlab.winehq.org/wine/wine/-/merge_requests/5103.patch
-    echo "WINE: -PENDING- taskschd (NCSoft Purple Client)"
-    patch -Np1 < ../patches/wine-hotfixes/pending/0001-taskschd-ncsoft-purple-5153.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/0002-taskschd-ncsoft-purple-5143.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/0003-taskschd-ncsoft-purple-5142.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/0004-taskschd-ncsoft-purple-5175.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/0005-taskschd-ncsoft-purple-5103.patch
+    echo "WINE: -PENDING- Fix wine bug #56653 - GetLogicalProcessorInformation can be missing Cache information"
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-bug-56653.patch
+
+    # https://github.com/ValveSoftware/wine/pull/269
+    echo "WINE: -PENDING- Hid multi TLC and Fanatec wheel-bases hidraw white-list"
+    patch -Np1 < ../patches/wine-hotfixes/pending/hid-multi-tlc-and-ftec-hidraw-269.patch
 
 ### END WINE PENDING UPSTREAM SECTION ###
 
@@ -214,24 +275,21 @@
     echo "WINE: -Nvidia Reflex- Support VK_NV_low_latency2"
     patch -Np1 < ../patches/proton/83-nv_low_latency_wine.patch
 
+    echo "WINE: -CUSTOM- Add nls to tools"
+    patch -Np1 < ../patches/proton/build_failure_prevention-add-nls.patch
+
     echo "WINE: CUSTOM Add options to disable proton media converter."
     patch -Np1 < ../patches/proton/add-envvar-to-gate-media-converter.patch
 
     echo "WINE: -CUSTOM- Downgrade MESSAGE to TRACE to remove write_watches spam"
     patch -Np1 < ../patches/proton/0001-ntdll-Downgrade-using-kernel-write-watches-from-MESS.patch
 
-    echo "WINE: -CUSTOM- Fix wine bug #56653 - GetLogicalProcessorInformation can be missing Cache information"
-    patch -Np1 < ../patches/wine-hotfixes/pending/wine-bug-56653.patch
+#    echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
+#    patch -Np1 < ../patches/proton/WINE_NO_WM_DECORATION.patch
 
-    echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
-    patch -Np1 < ../patches/proton/WINE_NO_WM_DECORATION.patch
-
-    echo "WINE: -CUSTOM- Add PROTON_PREFER_SDL option to make it not prefer hidraw and instead expose both sdl and hidraw"
+#    echo "WINE: -CUSTOM- Add PROTON_PREFER_SDL option to make it not prefer hidraw and instead expose both sdl and hidraw"
 #    patch -Np1 < ../patches/proton/PREFER_SDL.patch
 
-    # https://github.com/ValveSoftware/wine/pull/269
-    echo "WINE: -PENDING- Hid multi TLC and Fanatec wheel-bases hidraw white-list"
-#    patch -Np1 < ../patches/wine-hotfixes/pending/hid-multi-tlc-and-ftec-hidraw-269.patch
 
     popd
 
