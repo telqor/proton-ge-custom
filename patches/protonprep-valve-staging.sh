@@ -228,8 +228,8 @@
     echo "WINE: -GAME FIXES- add set current directory workaround for Vanguard Saga of Heroes"
     patch -Np1 < ../patches/game-patches/vgsoh.patch
 
-#    echo "WINE: -GAME FIXES- add xinput support to Dragon Age Inquisition"
-#    patch -Np1 < ../patches/game-patches/dai_xinput.patch
+    echo "WINE: -GAME FIXES- add xinput support to Dragon Age Inquisition"
+    patch -Np1 < ../patches/game-patches/dai_xinput.patch
 
 ### END GAME PATCH SECTION ###
 
@@ -283,6 +283,10 @@
 
     echo "WINE: -CUSTOM- Downgrade MESSAGE to TRACE to remove write_watches spam"
     patch -Np1 < ../patches/proton/0001-ntdll-Downgrade-using-kernel-write-watches-from-MESS.patch
+
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/7806
+    echo "WINE: -CUSTOM- winewayland-relative_motion_accumulator"
+    patch -Np1 < ../patches/proton/winewayland-relative_motion_accumulator.patch
 
 #    echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
 #    patch -Np1 < ../patches/proton/WINE_NO_WM_DECORATION.patch
