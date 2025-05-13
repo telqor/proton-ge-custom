@@ -10,7 +10,6 @@
     pushd vkd3d-proton
     git reset --hard HEAD
     git clean -xdf
-
     popd
 
     pushd dxvk-nvapi
@@ -30,15 +29,23 @@
     git reset --hard HEAD
     git clean -xdf
     pushd subprojects
-    pushd x11-xserver-utils
+    pushd libsmpack
     git reset --hard HEAD
     git clean -xdf
     popd
-    pushd xutils-dev
+    pushd python-xlib
+    git reset --hard HEAD
+    git clean -xdf
+    popd
+    pushd umu-database
     git reset --hard HEAD
     git clean -xdf
     popd
     pushd unzip
+    git reset --hard HEAD
+    git clean -xdf
+    popd
+    pushd winetricks
     git reset --hard HEAD
     git clean -xdf
     popd
