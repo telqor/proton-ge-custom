@@ -1,7 +1,7 @@
-From 9c1c95afcb94b398c74fc11de18919f068d8d4de Mon Sep 17 00:00:00 2001
+From 4d78e66b152714cfcde18863d83bb45564966c8e Mon Sep 17 00:00:00 2001
 From: Alexandros Frantzis <alexandros.frantzis@collabora.com>
 Date: Wed, 29 Jan 2025 13:39:02 +0200
-Subject: [PATCH 11/28] winewayland: Normalize received MIME type strings.
+Subject: [PATCH 11/44] winewayland: Normalize received MIME type strings.
 
 ---
  dlls/winewayland.drv/wayland_data_device.c | 45 +++++++++++++++++++---

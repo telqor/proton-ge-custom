@@ -1,7 +1,7 @@
-From 550aff98aa7899e917824b97a63789e19f1c5850 Mon Sep 17 00:00:00 2001
+From bc16371419682a9ba0a942a93d7054781792b6e0 Mon Sep 17 00:00:00 2001
 From: Alexandros Frantzis <alexandros.frantzis@collabora.com>
 Date: Thu, 6 Feb 2025 12:43:39 +0200
-Subject: [PATCH 05/28] winewayland: Round the Wayland refresh rate to
+Subject: [PATCH 05/44] winewayland: Round the Wayland refresh rate to
  calculate the win32 display frequency.
 
 Round the Wayland refresh rate instead of floor-ing it, to report a more

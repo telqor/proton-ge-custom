@@ -1,7 +1,7 @@
-From 0dde95e1bae1007353c0d3a36d66a3312641d50a Mon Sep 17 00:00:00 2001
+From d316a2ff1e4c7799184055785060d246d5bac42c Mon Sep 17 00:00:00 2001
 From: Attila Fidan <dev@print0.net>
 Date: Sun, 2 Feb 2025 08:07:41 +0000
-Subject: [PATCH 02/28] winewayland: Post IME update for committed text.
+Subject: [PATCH 02/44] winewayland: Post IME update for committed text.
 
 ---
  dlls/winewayland.drv/wayland_text_input.c | 50 +++++++++++++++++++++++

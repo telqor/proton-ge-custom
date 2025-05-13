@@ -1,8 +1,8 @@
-From fc862e2d0bffc7d48f473faeb5535377ef5c1648 Mon Sep 17 00:00:00 2001
+From ae0c3b9e9c7b1a837534715ef64950e24b27c9f3 Mon Sep 17 00:00:00 2001
 From: Etaash Mathamsetty
  <45927311+Etaash-mathamsetty@users.noreply.github.com>
 Date: Sun, 11 May 2025 21:38:39 -0400
-Subject: [PATCH] check if FSR4_UPGRADE env is nonzero
+Subject: [PATCH 40/44] check if FSR4_UPGRADE env is nonzero
 
 ---
  dlls/amdxc64/main.c | 6 ++++--
@@ -34,3 +34,6 @@ index 754e22f914f..d4dd071b0e0 100644
          return pfn(data, size);
      }
  
+-- 
+2.49.0
+

@@ -318,10 +318,22 @@
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0026-winewayland-Always-check-the-role-to-determine-wheth.patch
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0027-winewayland-Introduce-helper-to-check-whether-a-surf.patch
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0028-hack-winewayland-handle-fractional-scaling.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/939e04f7b9ea6a6fc7ba5118e8331b54ba93cfa8.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/21985af619021e837417cfacbcfb3fac8d07401e.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/fc862e2d0bffc7d48f473faeb5535377ef5c1648.patch
-    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/b6f7379927a9a531242a44f29b7da91715b0b989.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0029-cursor-shape-v1.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0030-Avoid-long-types-on-the-Unix-side.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0031-Create-.gitignore.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0032-winewayland-ensure-egl_display-is-not-EGL_BAD_PARAME.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0033-Add-amdxc-implementation.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0034-wine.inf-Don-t-clobber-UBR-key.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0035-twinapi.appcore-tests-Fix-broken-registry-query.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0036-winecfg-Add-support-for-UBR-key.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0037-winewayland-Don-t-use-a-destroyed-surface-in-text-in.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0038-hack-win32u-fix-opengl-applications-on-winewayland.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0039-winewayland-register-swap-control-tear.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0040-check-if-FSR4_UPGRADE-env-is-nonzero.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0041-fixup-winewayland-handle-locking-with-fractional-sca.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0042-winewayland-Use-ARGB-buffers-for-shaped-windows.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0043-winewayland-Implement-window-surface-shape-and-color.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0044-minor-formatting-fix.patch
     popd
 
 ### END PROTON-GE ADDITIONAL CUSTOM PATCHES ###

@@ -1,7 +1,7 @@
-From 9f2a2434f72b60e7aae0676b2db9ef84113d616f Mon Sep 17 00:00:00 2001
+From f0b9b675eddf0ccc6a77c3ab234d88c8449ece31 Mon Sep 17 00:00:00 2001
 From: Alexandros Frantzis <alexandros.frantzis@collabora.com>
 Date: Thu, 6 Mar 2025 17:09:58 +0200
-Subject: [PATCH 16/28] winewayland: Treat fully transparent cursors as hidden.
+Subject: [PATCH 16/44] winewayland: Treat fully transparent cursors as hidden.
 
 SDL 2.0.18 and newer (including SDL 3) set a fully transparent cursor
 object when hiding the cursor (instead of using a NULL cursor handle).

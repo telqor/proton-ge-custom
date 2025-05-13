@@ -1,7 +1,7 @@
-From bb9e4d4c36dcd1ded326b5ac314bff077568670f Mon Sep 17 00:00:00 2001
+From b6449212905d46d2890c0df6f2a3408366c81650 Mon Sep 17 00:00:00 2001
 From: Attila Fidan <dev@print0.net>
 Date: Thu, 20 Mar 2025 11:45:41 +0000
-Subject: [PATCH 17/28] win32u: Return 0 from NtUserGetKeyNameText if there is
+Subject: [PATCH 17/44] win32u: Return 0 from NtUserGetKeyNameText if there is
  no translation.
 
 ---

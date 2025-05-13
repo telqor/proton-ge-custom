@@ -1,7 +1,7 @@
-From edc4c5df5699006702d4c69933bcddb7514dc5eb Mon Sep 17 00:00:00 2001
+From 0e8fed2c0990cb334c658da1901528254739967f Mon Sep 17 00:00:00 2001
 From: Alexandros Frantzis <alexandros.frantzis@collabora.com>
 Date: Thu, 24 Apr 2025 15:46:33 +0300
-Subject: [PATCH 27/28] winewayland: Introduce helper to check whether a
+Subject: [PATCH 27/44] winewayland: Introduce helper to check whether a
  surface is toplevel.
 
 ---

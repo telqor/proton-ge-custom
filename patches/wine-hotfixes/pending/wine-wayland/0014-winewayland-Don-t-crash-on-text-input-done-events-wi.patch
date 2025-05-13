@@ -1,7 +1,7 @@
-From 60ce5a56034fbc2c49da5981de43b2cf5de8fd72 Mon Sep 17 00:00:00 2001
+From 3860f12bb6cb61a5344a9865548a1f8a07966ab9 Mon Sep 17 00:00:00 2001
 From: Alexandros Frantzis <alexandros.frantzis@collabora.com>
 Date: Tue, 18 Feb 2025 17:32:42 +0200
-Subject: [PATCH 14/28] winewayland: Don't crash on text input done events
+Subject: [PATCH 14/44] winewayland: Don't crash on text input done events
  without focus.
 
 Some compositors (e.g., kwin) will send a done event for every commit,
