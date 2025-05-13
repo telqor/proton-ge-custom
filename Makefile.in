@@ -693,7 +693,9 @@ WINE_SOURCE_ARGS = \
   --exclude server/request_trace.h \
 
 WINE_AUTOCONF_ARGS = \
+  --with-wayland \
   --with-mingw \
+  --without-ffmpeg \
   --disable-tests
 
 WINE_x86_64_AUTOCONF_ARGS = \

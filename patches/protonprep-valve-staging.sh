@@ -60,11 +60,6 @@
 
     git revert --no-commit e813ca5771658b00875924ab88d525322e50d39f
 
-# This doesn't correctly resolve the issue. We have patches that handle this for gstreamer
-# Need to revert this so our patches work.
-
-    git revert --no-commit 37818f7a547f7090ef684f8202438374fc31a165
-
 ### END PROBLEMATIC COMMIT REVERT SECTION ###
 
 ### (2-2) WINE STAGING APPLY SECTION ###
@@ -266,8 +261,8 @@
 
 ### (2-6) PROTON-GE ADDITIONAL CUSTOM PATCHES ###
 
-#    echo "WINE: -FSR- fullscreen hack fsr patch"
-#    patch -Np1 < ../patches/proton/47-proton-fshack-AMD-FSR-complete.patch
+    echo "WINE: -FSR- fullscreen hack fsr patch"
+    patch -Np1 < ../patches/proton/0001-fshack-Implement-AMD-FSR-upscaler-for-fullscreen-hac.patch
 
     echo "WINE: -Nvidia Reflex- Support VK_NV_low_latency2"
     patch -Np1 < ../patches/proton/83-nv_low_latency_wine.patch
@@ -275,20 +270,51 @@
     echo "WINE: -CUSTOM- Add nls to tools"
     patch -Np1 < ../patches/proton/build_failure_prevention-add-nls.patch
 
-    echo "WINE: CUSTOM Add options to disable proton media converter."
+    echo "WINE: -CUSTOM Add options to disable proton media converter."
     patch -Np1 < ../patches/proton/add-envvar-to-gate-media-converter.patch
 
     echo "WINE: -CUSTOM- Downgrade MESSAGE to TRACE to remove write_watches spam"
     patch -Np1 < ../patches/proton/0001-ntdll-Downgrade-using-kernel-write-watches-from-MESS.patch
 
-    # https://gitlab.winehq.org/wine/wine/-/merge_requests/7806
-    echo "WINE: -CUSTOM- winewayland-relative_motion_accumulator"
-    patch -Np1 < ../patches/proton/winewayland-relative_motion_accumulator.patch
-
     echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
     patch -Np1 < ../patches/proton/0001-win32u-add-env-switch-to-disable-wm-decorations.patch
 
+    echo "WINE: -CUSTOM- add gstreamer surfaceless option"
+    patch -Np1 < ../patches/proton/0001-use-surfaceless-for-GST.patch
 
+    echo "WINE: -CUSTOM- wine wayland"
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0001-winewayland-Enable-disable-the-zwp_text_input_v3-obj.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0002-winewayland-Post-IME-update-for-committed-text.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0003-winewayland-Implement-SetIMECompositionRect.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0004-winewayland-Post-IME-update-for-preedit-text.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0005-winewayland-Round-the-Wayland-refresh-rate-to-calcul.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0006-winewayland-Implement-zwlr_data_control_device_v1-in.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0007-winewayland-Support-copying-text-from-win32-clipboar.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0008-winewayland-Generalize-support-for-exporting-clipboa.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0009-winewayland-Support-exporting-various-clipboard-form.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0010-winewayland-Support-copying-data-from-native-clipboa.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0011-winewayland-Normalize-received-MIME-type-strings.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0012-winewayland-Update-locked-pointer-position-hint.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0013-winewayland-Implement-SetCursorPos-via-pointer-lock.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0014-winewayland-Don-t-crash-on-text-input-done-events-wi.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0015-winewayland-Present-EGL-surfaces-opaquely.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0016-winewayland-Treat-fully-transparent-cursors-as-hidde.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0017-win32u-Return-0-from-NtUserGetKeyNameText-if-there-i.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0018-winewayland-Implement-wl_data_device-initialization.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0019-winewayland-Support-wl_data_device-for-copies-from-w.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0020-winewayland-Support-wl_data_device-for-copies-from-n.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0021-winewayland-Warn-about-missing-clipboard-functionali.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0022-winewayland.drv-Implement-support-for-xdg-toplevel-i.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0023-winewayland-Implement-relative-motion-accumulator.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0024-winewayland-Require-wl_pointer-for-pointer-constrain.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0025-support-older-EGL-headers.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0026-winewayland-Always-check-the-role-to-determine-wheth.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0027-winewayland-Introduce-helper-to-check-whether-a-surf.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0028-hack-winewayland-handle-fractional-scaling.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/939e04f7b9ea6a6fc7ba5118e8331b54ba93cfa8.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/21985af619021e837417cfacbcfb3fac8d07401e.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/fc862e2d0bffc7d48f473faeb5535377ef5c1648.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/b6f7379927a9a531242a44f29b7da91715b0b989.patch
     popd
 
 ### END PROTON-GE ADDITIONAL CUSTOM PATCHES ###
