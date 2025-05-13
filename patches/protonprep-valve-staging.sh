@@ -29,7 +29,7 @@
     git reset --hard HEAD
     git clean -xdf
     pushd subprojects
-    pushd libsmpack
+    pushd libmspack
     git reset --hard HEAD
     git clean -xdf
     popd
