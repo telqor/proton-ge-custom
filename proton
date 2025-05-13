@@ -1711,6 +1711,7 @@ class Session:
             self.check_environment("PROTON_USE_WINED3D11", "wined3d")
         self.check_environment("PROTON_NO_WM_DECORATION", "nowmdecoration")
         self.check_environment("PROTON_ENABLE_WAYLAND", "enablewayland")
+        self.check_environment("PROTON_ENABLE_HDR", "enablehdr")
         self.check_environment("PROTON_DXVK_D3D8", "dxvkd3d8")
         self.check_environment("PROTON_NO_D3D11", "nod3d11")
         self.check_environment("PROTON_NO_D3D10", "nod3d10")
@@ -1742,8 +1743,9 @@ class Session:
             if self.env.get("WAYLAND_DISPLAY", False):
                 self.dlloverrides["winex11.drv"] = "d"
                 self.dlloverrides["winewayland.drv"] = "b"
-                self.env["DXVK_HDR"] = "1"
-                self.env["ENABLE_HDR_WSI"] = "1"
+                if "enablehdr" in self.compat_config:
+                    self.env["DXVK_HDR"] = "1"
+                    self.env["ENABLE_HDR_WSI"] = "1"
 
         if "noxim" not in self.compat_config:
             self.env.pop("WINE_ALLOW_XIM")
