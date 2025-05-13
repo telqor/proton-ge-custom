@@ -286,6 +286,12 @@
     echo "WINE: -CUSTOM- Add WINE_NO_WM_DECORATION option to disable window decorations so that borders behave properly"
     patch -Np1 < ../patches/proton/0001-win32u-add-env-switch-to-disable-wm-decorations.patch
 
+    # https://gitlab.winehq.org/wine/wine/-/merge_requests/7238
+    echo "WINE: -CUSTOM- Add enhanced dualsense patches"
+    patch -Np1 < ../patches/proton/dualsense/0001-mmdevapi-correctly-read-and-write-containerid-as-cls.patch
+    patch -Np1 < ../patches/proton/dualsense/0002-containerid-helper-to-generate-a-containerid-from-a-.patch
+    patch -Np1 < ../patches/proton/dualsense/0003-Implement-SetupDiGetDeviceInterfacePropertyW-for-DEV.patch
+
     echo "WINE: -CUSTOM- add gstreamer surfaceless option"
     patch -Np1 < ../patches/proton/0001-use-surfaceless-for-GST.patch
 
