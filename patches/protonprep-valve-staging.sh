@@ -340,6 +340,10 @@
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0042-winewayland-Use-ARGB-buffers-for-shaped-windows.patch
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0043-winewayland-Implement-window-surface-shape-and-color.patch
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0044-minor-formatting-fix.patch
+
+    echo "WINE: -CUSTOM- wine ntsync"
+    patch -Np1 < ../patches/wine-hotfixes/proton10-ntsync.patch
+
     popd
 
 ### END PROTON-GE ADDITIONAL CUSTOM PATCHES ###
