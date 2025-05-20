@@ -295,6 +295,9 @@
     echo "WINE: -CUSTOM- add gstreamer surfaceless option"
     patch -Np1 < ../patches/proton/0001-use-surfaceless-for-GST.patch
 
+    echo "WINE: -CUSTOM- fixup for enable/disable hidraw"
+    patch -Np1 < ../patches/proton/1c2f561d80d20fa770c5fd170b9100c94293792d.patch
+
     echo "WINE: -CUSTOM- wine wayland"
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0001-winewayland-Enable-disable-the-zwp_text_input_v3-obj.patch
     patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/0002-winewayland-Post-IME-update-for-committed-text.patch
@@ -343,6 +346,24 @@
 
     echo "WINE: -CUSTOM- wine ntsync"
     patch -Np1 < ../patches/wine-hotfixes/proton10-ntsync.patch
+
+    # Fix orientation on steam deck
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cb400427c7fd6c80664f11b7bbaf128fc46fcd59.patch
+
+    # Game/launcher wayland fixes
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0001-ntdll-remove-outdated-workaround-for-rainbow-six-ext.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0002-HACK-kernelbase-Add-Wayland-specific-workarounds.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0003-fixup-kernelbase-Check-for-wayland-hacks-first.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0004-formatting-fix.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0005-kernelbase-Enable-in-process-gpu-for-battle.net.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0006-kernelbase-Add-in-process-gpu-for-RSI-launcher.patch
+
+    # Touchpad wayland fix
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0007-winewayland-Implement-touchpad-scrolling-support.patch
+
+    # Un-accelerated mouse input (rawinput)
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0008-winewayland-Use-unaccelerated-relative-motion.patch
+    patch -Np1 < ../patches/wine-hotfixes/pending/wine-wayland/cursor_and_launchers/0009-winewayland-Use-discrete-event-when-possible.patch
 
     popd
 
