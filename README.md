@@ -1,3 +1,5 @@
+# GE-Proton NTSync
+
 This is [GloriousEggroll's GE-Proton](https://github.com/GloriousEggroll/proton-ge-custom) with NTSync patches included, no other changes have been made. The required patches have been obtained from the proton-cachyos project, specifically [its Wine repository](https://github.com/CachyOS/wine-cachyos).
 
 You can verify that you are running NTSync by checking for the string "using fast synchronization" in your Wine/Proton logs, or by using Mangohud's WSYNC indicator.
