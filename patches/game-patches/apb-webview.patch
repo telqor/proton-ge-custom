@@ -1,0 +1,93 @@
+From ec6fd0771917aecf4d43e01fd73b90e607dc15c4 Mon Sep 17 00:00:00 2001
+From: telqor <moji@gmx.com>
+Date: Tue, 17 Jun 2025 21:40:15 +0200
+Subject: [PATCH] Add WebView2 + Mono winetrick for APB
+
+---
+ files/verbs/all.txt      |  1 +
+ files/verbs/dlls.txt     |  1 +
+ files/verbs/download.txt |  1 +
+ src/winetricks           | 22 ++++++++++++++++++++++
+ 4 files changed, 25 insertions(+)
+
+diff --git a/files/verbs/all.txt b/files/verbs/all.txt
+index 41d0c4c..90b8664 100644
+--- a/files/verbs/all.txt
++++ b/files/verbs/all.txt
+@@ -362,6 +362,7 @@ vcrun6sp6                Visual C++ 6 SP6 libraries (with fixes in ATL and MFC)
+ vjrun20                  MS Visual J# 2.0 SE libraries (requires dotnet20) (Microsoft, 2007) [downloadable]
+ vkd3d                    Vulkan-based D3D12 implementation for Linux / Wine (latest) (Hans-Kristian Arntzen , 2020) [downloadable]
+ webio                    MS Windows Web I/O (Microsoft, 2011) [downloadable]
++webview2                 Microsoft Edge WebView 2 (Microsoft, 2020) [downloadable]
+ windowscodecs            MS Windows Imaging Component (Microsoft, 2006) [downloadable]
+ winhttp                  MS Windows HTTP Services (Microsoft, 2005) [downloadable]
+ wininet                  MS Windows Internet API (Microsoft, 2011) [downloadable]
+diff --git a/files/verbs/dlls.txt b/files/verbs/dlls.txt
+index 47fdfec..d7d3547 100644
+--- a/files/verbs/dlls.txt
++++ b/files/verbs/dlls.txt
+@@ -291,6 +291,7 @@ vcrun6sp6                Visual C++ 6 SP6 libraries (with fixes in ATL and MFC)
+ vjrun20                  MS Visual J# 2.0 SE libraries (requires dotnet20) (Microsoft, 2007) [downloadable]
+ vkd3d                    Vulkan-based D3D12 implementation for Linux / Wine (latest) (Hans-Kristian Arntzen , 2020) [downloadable]
+ webio                    MS Windows Web I/O (Microsoft, 2011) [downloadable]
++webview2                 Microsoft Edge WebView 2 (Microsoft, 2020) [downloadable]
+ windowscodecs            MS Windows Imaging Component (Microsoft, 2006) [downloadable]
+ winhttp                  MS Windows HTTP Services (Microsoft, 2005) [downloadable]
+ wininet                  MS Windows Internet API (Microsoft, 2011) [downloadable]
+diff --git a/files/verbs/download.txt b/files/verbs/download.txt
+index c07e6d7..a8ab4dc 100644
+--- a/files/verbs/download.txt
++++ b/files/verbs/download.txt
+@@ -382,6 +382,7 @@ vlgothic
+ vstools2019
+ webdings
+ webio
++webview2
+ wenquanyi
+ wenquanyizenhei
+ wglgears
+diff --git a/src/winetricks b/src/winetricks
+index fc52838..51b2b4c 100755
+--- a/src/winetricks
++++ b/src/winetricks
+@@ -13193,7 +13193,28 @@ load_webio()
+     w_override_dlls native,builtin webio
+ }
+ 
++#----------------------------------------------------------------
++
++w_metadata webview2 dlls \
++    title="Microsoft Edge WebView2 (installs patched Mono package)" \
++    publisher="Microsoft" \
++    year="2020" \
++    media="download" \
++    file1="wine-mono-10.1.0-x86.msi" \
++    file2="MicrosoftEdgeWebView2RuntimeInstallerX64.exe" \
++    installed_file1="${W_PROGRAMS_X86_WIN}/Microsoft/EdgeWebView/Application/109.0.1518.78/msedge.exe"
++
++load_webview2()
++{
++    w_download https://github.com/telqor/wine-mono/releases/download/wine-mono-10.1-tq/wine-mono-10.1.0-x86.msi c3b14a69e32fb5d56c51bd6a8c1d0841d7b9185fc3cd4b518a9eb07654eee750
++    w_try_cd "${W_CACHE}/${W_PACKAGE}"
++    w_try "${WINE}" msiexec /i "${file1}"
++
++    w_download https://github.com/aedancullen/webview2-evergreen-standalone-installer-archive/releases/download/109.0.1518.78/MicrosoftEdgeWebView2RuntimeInstallerX64.exe f2cc49863e221402d4664d9fa944a47f22543da2dcb363438c3e598789b9fd5b
++    w_try_cd "${W_CACHE}/${W_PACKAGE}"
++    w_try "${WINE}" "${file2}" /silent /install
+ 
++}
+ #----------------------------------------------------------------
+ 
+ w_metadata windowscodecs dlls \
+@@ -13630,6 +13651,7 @@ load_xvid()
+     w_try "${WINE}" "${file1}" ${W_OPT_UNATTENDED:+ --mode unattended --decode_divx 1 --decode_3ivx 1 --decode_other 1}
+ }
+ 
++
+ #######################
+ # fonts
+ #######################
+-- 
+2.49.0
+
+

@@ -395,5 +395,17 @@
 
     popd
 
+    pushd protonfixes
+    pushd subprojects
+    pushd winetricks
+
+    echo "PROTONTRICKS: -GAME FIXES- apb reloaded webview launcher winetrick"
+    patch -Np1 < ../../../patches/game-patches/apb-webview.patch
+
+    popd
+    popd
+    popd
+
+
 ### END PROTON-GE ADDITIONAL CUSTOM PATCHES ###
 ### END WINE PATCHING ###
