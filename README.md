@@ -1,9 +1,11 @@
-This is my personal fork of [GloriousEggroll's GE-Proton](https://github.com/GloriousEggroll/proton-ge-custom), enabling following changes:
+## Proton-GE-Moji
+
+This is my personal fork of [GloriousEggroll's GE-Proton](https://github.com/GloriousEggroll/proton-ge-custom), currently enabling following changes:
 
 - NTSync support
 - Preliminary Edge WebView2 installer via Winetricks (for APB Reloaded OTW/Beta's new WebView launcher)
 
-*About NTSync:*
+### About NTSync:
 
 The required NTSync patches have been obtained from the proton-cachyos project, specifically [its Wine repository](https://github.com/CachyOS/wine-cachyos).
 
@@ -19,7 +21,7 @@ Use the environment variable `PROTON_NO_NTSYNC=1` to manually disable NTSync, su
 
 Thanks to Elizabeth Figura for developing the NTSync patchset, and to whrvt and loathingKernel for rebasing the patches to work on a Proton 10 base.
 
-*About WebView2:*
+### About WebView2:
 
 The built in Winetricks now contains the webview2 verb, you can install it easily with umu for a given game ID:
 
